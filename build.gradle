@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        projectGroupName = 'fr.lacombe'
+        projectGroupName = 'fr.lacombe.pomodorover'
         projectVersion = '0.0.1-SNAPSHOT'
 
         projectSourceCompatibility = JavaVersion.VERSION_11
