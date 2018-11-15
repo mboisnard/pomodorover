@@ -6,25 +6,36 @@ buildscript {
         projectSourceCompatibility = JavaVersion.VERSION_11
         projectTargetCompatibility = JavaVersion.VERSION_11
 
+        // Dependencies Versions \\
+
+        // Gradle Plugins
+        chainsawVersion = '0.3.1'
+
+        // Spring Boot
         springBootVersion = '2.1.0.RELEASE'
 
+        // Tests
         junitVersion = '5.3.1'
         assertjVersion = '3.11.1'
         mockitoVersion = '2.23.0'
     }
 
     repositories {
-        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "gradle.plugin.com.zyxist:chainsaw:${chainsawVersion}"
     }
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'com.zyxist.chainsaw'
 
     group projectGroupName
     version projectVersion
@@ -42,3 +53,5 @@ subprojects {
         testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     }
 }
+
+// https://guides.gradle.org/building-java-9-modules/
