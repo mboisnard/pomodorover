@@ -1,0 +1,44 @@
+buildscript {
+    ext {
+        projectGroupName = 'fr.lacombe'
+        projectVersion = '0.0.1-SNAPSHOT'
+
+        projectSourceCompatibility = JavaVersion.VERSION_11
+        projectTargetCompatibility = JavaVersion.VERSION_11
+
+        springBootVersion = '2.1.0.RELEASE'
+
+        junitVersion = '5.3.1'
+        assertjVersion = '3.11.1'
+        mockitoVersion = '2.23.0'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    group projectGroupName
+    version projectVersion
+
+    sourceCompatibility = projectSourceCompatibility
+    targetCompatibility = projectTargetCompatibility
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testImplementation "org.assertj:assertj-core:${assertjVersion}"
+        testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    }
+}
