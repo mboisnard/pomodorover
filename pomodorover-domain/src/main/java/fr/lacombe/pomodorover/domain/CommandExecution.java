@@ -14,7 +14,7 @@ public class CommandExecution {
         this.finalPosition = finalPosition;
     }
 
-    static CommandExecution of(Position initialPosition, List<Command> commands, Position finalPosition) {
+    public static CommandExecution of(Position initialPosition, List<Command> commands, Position finalPosition) {
         return new CommandExecution(initialPosition, commands, finalPosition);
     }
 

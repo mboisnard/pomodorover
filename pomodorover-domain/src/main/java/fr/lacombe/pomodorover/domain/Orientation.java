@@ -1,6 +1,6 @@
 package fr.lacombe.pomodorover.domain;
 
-enum Orientation {
+public enum Orientation {
 
     NORTH(0, 1),
     EAST(1, 0),

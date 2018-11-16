@@ -2,7 +2,7 @@ package fr.lacombe.pomodorover.domain;
 
 import java.util.function.UnaryOperator;
 
-enum Command {
+public enum Command {
     LEFT(Position::left),
     RIGHT(Position::right),
     FORWARD(Position::forward),

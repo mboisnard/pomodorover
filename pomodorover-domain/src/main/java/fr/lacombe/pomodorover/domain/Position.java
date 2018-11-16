@@ -2,7 +2,7 @@ package fr.lacombe.pomodorover.domain;
 
 import java.util.Objects;
 
-class Position {
+public class Position {
 
     private final Orientation orientation;
     private final Coordinates coordinates;
@@ -12,7 +12,7 @@ class Position {
         this.orientation = orientation;
     }
 
-    static Position of(final Orientation orientation, final Coordinates coordinates) {
+    public static Position of(final Orientation orientation, final Coordinates coordinates) {
         return new Position(orientation, coordinates);
     }
 

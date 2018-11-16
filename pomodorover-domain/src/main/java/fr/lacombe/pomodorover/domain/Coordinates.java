@@ -2,7 +2,7 @@ package fr.lacombe.pomodorover.domain;
 
 import java.util.Objects;
 
-class Coordinates {
+public class Coordinates {
 
     private final int x;
     private final int y;
@@ -12,7 +12,7 @@ class Coordinates {
         this.y = y;
     }
 
-    static Coordinates of(final int x, final int y) {
+    public static Coordinates of(final int x, final int y) {
         return new Coordinates(x, y);
     }
 

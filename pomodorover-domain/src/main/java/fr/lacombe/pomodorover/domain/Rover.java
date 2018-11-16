@@ -2,7 +2,7 @@ package fr.lacombe.pomodorover.domain;
 
 import java.util.List;
 
-class Rover {
+public class Rover {
 
     private final RoverPersistence roverPersistence;
     private Position position;
@@ -16,7 +16,7 @@ class Rover {
         return of(roverPersistence, Position.of(Orientation.NORTH, Coordinates.of(0, 0)));
     }
 
-    static Rover of(RoverPersistence roverPersistence, Position position) {
+    public static Rover of(RoverPersistence roverPersistence, Position position) {
         return new Rover(roverPersistence, position);
     }
 
