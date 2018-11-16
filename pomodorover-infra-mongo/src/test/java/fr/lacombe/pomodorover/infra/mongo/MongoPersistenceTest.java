@@ -10,7 +10,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static fr.lacombe.pomodorover.domain.Command.*;
+import static fr.lacombe.pomodorover.domain.Orientation.NORTH;
 import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,19 +29,52 @@ class MongoPersistenceTest {
     private MongoCollection<Document> mongoCollection;
 
     @Test
-    void name() {
+    void should_insert_a_command_execution_as_bson_document() {
         MongoPersistence mongoPersistence = MongoPersistence.of(mongoClient);
         when(mongoClient.getDatabase(anyString())).thenReturn(mongoDatabase);
         when(mongoDatabase.getCollection(anyString())).thenReturn(mongoCollection);
 
-        Document document = new Document();
+        var document = document();
 
-        mongoPersistence.updatePosition(CommandExecution.of(
-                Position.of(Orientation.NORTH, Coordinates.of(0, 0)),
-                singletonList(Command.FORWARD),
-                Position.of(Orientation.NORTH, Coordinates.of(0, 1)))
-        );
+        mongoPersistence.updatePosition(commandExecution());
 
         verify(mongoCollection).insertOne(document);
+    }
+
+    @Test
+    void should_map_command_execution_as_bson_document() {
+        MongoPersistence mongoPersistence = MongoPersistence.of(mongoClient);
+
+        Document document = mongoPersistence.mapDocument(commandExecution());
+
+        assertThat(document).isEqualTo(document());
+    }
+
+    private CommandExecution commandExecution() {
+        return CommandExecution.of(
+                Position.of(NORTH, Coordinates.of(0, 0)),
+                singletonList(FORWARD),
+                Position.of(NORTH, Coordinates.of(0, 1))
+        );
+    }
+
+    private Document document() {
+        var initialPosition = new Document()
+            .append("orientation", NORTH)
+            .append("x", 0)
+            .append("y", 0);
+
+        var commands = new Document()
+                .append("commands", singletonList(FORWARD));
+
+        var finalPosition = new Document()
+                .append("orientation", NORTH)
+                .append("x", 0)
+                .append("y", 1);
+
+        return new Document()
+                .append("initialPosition", initialPosition)
+                .append("commands", commands)
+                .append("finalPosition", finalPosition);
     }
 }

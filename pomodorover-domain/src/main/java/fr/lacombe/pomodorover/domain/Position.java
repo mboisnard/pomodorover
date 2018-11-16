@@ -32,6 +32,14 @@ public class Position {
         return of(orientation, orientation.backward(coordinates));
     }
 
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

@@ -18,6 +18,18 @@ public class CommandExecution {
         return new CommandExecution(initialPosition, commands, finalPosition);
     }
 
+    public Position getInitialPosition() {
+        return initialPosition;
+    }
+
+    public List<Command> getCommands() {
+        return commands;
+    }
+
+    public Position getFinalPosition() {
+        return finalPosition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -24,6 +24,14 @@ public class Coordinates {
         return add(-x, -y);
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
