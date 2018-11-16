@@ -55,6 +55,10 @@ class RoverTest {
 
         rover.receive(asList(RIGHT, FORWARD));
 
-        verify(persistence).updatePosition(Position.of(NORTH, Coordinates.of(0, 0)), asList(RIGHT, FORWARD), Position.of(EAST, Coordinates.of(1,0)));
+        verify(persistence).updatePosition(CommandExecution.of(
+                Position.of(NORTH, Coordinates.of(0, 0)),
+                asList(RIGHT, FORWARD),
+                Position.of(EAST, Coordinates.of(1, 0)))
+        );
     }
 }

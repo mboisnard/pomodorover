@@ -23,7 +23,7 @@ class Rover {
     Position receive(final List<Command> commands) {
         Position initialPosition = position;
         commands.forEach(command -> position = command.execute(position));
-        roverPersistence.updatePosition(initialPosition, commands, position);
+        roverPersistence.updatePosition(CommandExecution.of(initialPosition, commands, position));
         return position;
     }
 
