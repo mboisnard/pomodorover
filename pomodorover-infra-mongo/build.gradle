@@ -1,4 +1,7 @@
+ext.moduleName = 'fr.lacombe.pomodorover.infra.mongo'
+
 dependencies {
     implementation "org.mongodb:mongo-java-driver:${mongoDBVersion}"
+    
     implementation project(':pomodorover-domain')
 }

@@ -8,9 +8,6 @@ buildscript {
 
         // Dependencies Versions \\
 
-        // Gradle Plugins
-        chainsawVersion = '0.3.1'
-
         // Spring Boot
         springBootVersion = '2.1.0.RELEASE'
 
@@ -31,14 +28,12 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath "gradle.plugin.com.zyxist:chainsaw:${chainsawVersion}"
     }
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'com.zyxist.chainsaw'
 
     group projectGroupName
     version projectVersion
@@ -50,13 +45,78 @@ subprojects {
         mavenCentral()
     }
 
-    /*test {
+    test {
         useJUnitPlatform()
+    }
 
-        filter {
-            exclude 'module-info.class'
+    afterEvaluate {
+
+        compileJava {
+            doFirst {
+                options.compilerArgs = [
+                        '--module-path', classpath.asPath,
+                ]
+                classpath = files()
+            }
         }
-    }*/
+
+        compileTestJava {
+            inputs.property("moduleName", moduleName)
+            doFirst {
+                options.compilerArgs = [
+                        '--module-path', classpath.asPath,
+                        '--add-modules', 'org.junit.jupiter.api',
+                        '--add-modules', 'org.junit.platform.commons',
+                        '--add-modules', 'org.junit.platform.engine',
+                        '--add-modules', 'org.junit.jupiter.params',
+                        '--add-modules', 'org.junit.jupiter.engine',
+                        '--add-modules', 'org.assertj.core',
+                        '--add-modules', 'org.mockito',
+                        '--add-modules', 'objenesis',
+                        '--add-modules', 'mockito.junit.jupiter',
+                        '--add-modules', 'net.bytebuddy',
+                        '--add-modules', 'net.bytebuddy.agent',
+                        '--add-reads', "$moduleName=org.junit.jupiter.api",
+                        '--add-reads', "$moduleName=org.mockito",
+                        '--add-reads', "$moduleName=org.junit.platform.commons",
+                        '--add-reads', "$moduleName=org.junit.platform.engine",
+                        '--add-reads', "$moduleName=org.junit.jupiter.params",
+                        '--add-reads', "$moduleName=org.junit.jupiter.engine",
+                        '--add-reads', "$moduleName=objenesis",
+                        '--add-reads', "$moduleName=mockito.junit.jupiter",
+                        '--add-reads', "$moduleName=net.bytebuddy",
+                        '--add-reads', "$moduleName=net.bytebuddy.agent",
+                        '--add-reads', "$moduleName=org.assertj.core",
+                        '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
+                ]
+                classpath = files()
+            }
+        }
+
+        test {
+            inputs.property("moduleName", moduleName)
+            doFirst {
+                jvmArgs = [
+                        '-noverify',
+                        '--module-path', classpath.asPath,
+                        '--add-modules', 'ALL-MODULE-PATH',
+                        '--add-reads', "$moduleName=org.junit.jupiter.api",
+                        '--add-reads', "$moduleName=org.mockito",
+                        '--add-reads', "$moduleName=org.junit.jupiter.params",
+                        '--add-reads', "$moduleName=org.junit.jupiter.engine",
+                        '--add-reads', "$moduleName=org.junit.platform.engine",
+                        '--add-reads', "$moduleName=org.junit.platform.commons",
+                        '--add-reads', "$moduleName=mockito.junit.jupiter",
+                        '--add-reads', "$moduleName=objenesis",
+                        '--add-reads', "$moduleName=net.bytebuddy",
+                        '--add-reads', "$moduleName=net.bytebuddy.agent",
+                        '--add-reads', "$moduleName=org.assertj.core",
+                        '--patch-module', "$moduleName=" + files(sourceSets.test.java.outputDir).asPath,
+                ]
+                classpath = files()
+            }
+        }
+    }
 
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
