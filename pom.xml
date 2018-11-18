@@ -13,8 +13,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
 
+        <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
+        <surefire.plugin.version>3.0.0-M1</surefire.plugin.version>
+
         <junit.version>5.3.1</junit.version>
-        <surefire.version>3.0.0-M1</surefire.version>
         <assertj.version>3.11.1</assertj.version>
         <mockito.version>2.23.0</mockito.version>
     </properties>
@@ -30,14 +32,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
+                <version>${surefire.plugin.version}</version>
             </plugin>
         </plugins>
     </build>
