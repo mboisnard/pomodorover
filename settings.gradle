@@ -1,5 +1,0 @@
-rootProject.name = 'pomodorover'
-
-include 'pomodorover-api'
-include 'pomodorover-domain'
-include 'pomodorover-infra-mongo'
