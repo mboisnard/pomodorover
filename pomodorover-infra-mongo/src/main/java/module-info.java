@@ -3,4 +3,5 @@ module fr.lacombe.pomodorover.infra.mongo {
     requires fr.lacombe.pomodorover.domain;
 
     opens fr.lacombe.pomodorover.infra.mongo;
+    exports fr.lacombe.pomodorover.infra.mongo;
 }

@@ -30,7 +30,7 @@ class MongoPersistenceTest {
 
     @Test
     void should_insert_a_command_execution_as_bson_document() {
-        MongoPersistence mongoPersistence = MongoPersistence.of(mongoClient);
+        MongoPersistence mongoPersistence = new MongoPersistence(mongoClient);
         when(mongoClient.getDatabase(anyString())).thenReturn(mongoDatabase);
         when(mongoDatabase.getCollection(anyString())).thenReturn(mongoCollection);
 
@@ -43,7 +43,7 @@ class MongoPersistenceTest {
 
     @Test
     void should_map_command_execution_as_bson_document() {
-        MongoPersistence mongoPersistence = MongoPersistence.of(mongoClient);
+        MongoPersistence mongoPersistence = new MongoPersistence(mongoClient);
 
         Document document = mongoPersistence.mapDocument(commandExecution());
 

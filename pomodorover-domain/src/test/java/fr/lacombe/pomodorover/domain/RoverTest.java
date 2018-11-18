@@ -1,8 +1,11 @@
 package fr.lacombe.pomodorover.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -11,12 +14,13 @@ import static fr.lacombe.pomodorover.domain.Orientation.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class RoverTest {
 
-    private RoverPersistence persistence = mock(RoverPersistence.class);
+    @Mock
+    private RoverPersistence persistence;
 
     private static Object[] parameters() {
         return new Object[][] {

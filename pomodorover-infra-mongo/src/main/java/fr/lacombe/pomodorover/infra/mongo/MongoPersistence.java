@@ -9,11 +9,12 @@ public class MongoPersistence implements RoverPersistence {
 
     private final MongoClient mongoClient;
 
-    private MongoPersistence(MongoClient mongoClient) {
+    MongoPersistence(MongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
 
-    static MongoPersistence of(MongoClient mongoClient) {
+    public static MongoPersistence of(String url, int port) {
+        MongoClient mongoClient = new MongoClient(url, port);
         return new MongoPersistence(mongoClient);
     }
 
