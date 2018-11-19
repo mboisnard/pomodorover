@@ -12,11 +12,11 @@ public class Rover {
         this.roverPersistence = roverPersistence;
     }
 
-    static Rover withInitialPosition(RoverPersistence roverPersistence) {
+    public static Rover withInitialPosition(RoverPersistence roverPersistence) {
         return of(roverPersistence, Position.of(Orientation.NORTH, Coordinates.of(0, 0)));
     }
 
-    public static Rover of(RoverPersistence roverPersistence, Position position) {
+    static Rover of(RoverPersistence roverPersistence, Position position) {
         return new Rover(roverPersistence, position);
     }
 
@@ -30,5 +30,9 @@ public class Rover {
     @Override
     public String toString() {
         return position.toString();
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }
