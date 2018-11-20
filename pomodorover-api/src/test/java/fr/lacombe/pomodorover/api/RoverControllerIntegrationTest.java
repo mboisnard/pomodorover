@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -38,5 +39,21 @@ class RoverControllerIntegrationTest {
                 .body("orientation", equalTo("NORTH"))
                 .body("coordinates.x", equalTo(0))
                 .body("coordinates.y", equalTo(0));
+    }
+
+    @Test
+    void should_send_commands_list_and_get_new_position() {
+
+        given()
+                .contentType("application/json")
+                .body("[\"F\", \"R\", \"F\", \"L\", \"B\",\"R\",\"R\"]")
+        .when()
+                .put(POSITION_URL)
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("orientation", equalTo("SOUTH"))
+                .body("coordinates.x", equalTo(1))
+                .body("coordinates.y", equalTo(0));
+
     }
 }

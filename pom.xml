@@ -44,12 +44,19 @@
                     <release>${java.version}</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
                     <forkCount>0</forkCount>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jlink-plugin</artifactId>
+                <version>3.0.0-alpha-1</version>
+                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
