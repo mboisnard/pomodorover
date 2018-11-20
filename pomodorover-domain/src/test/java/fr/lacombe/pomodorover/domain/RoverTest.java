@@ -72,4 +72,14 @@ class RoverTest {
 
         assertThat(rover.getPosition()).isEqualTo(Position.of(NORTH, Coordinates.of(0, 0)));
     }
+
+    @Test
+    void should_initialize_rover_at_the_last_persisted_position() {
+        Position persistedPosition = Position.of(SOUTH, Coordinates.of(1, 0));
+        when(persistence.findLastPosition()).thenReturn(Optional.of(persistedPosition));
+
+        final Rover rover = Rover.withInitialPosition(persistence);
+
+        assertThat(rover.getPosition()).isEqualTo(persistedPosition);
+    }
 }
