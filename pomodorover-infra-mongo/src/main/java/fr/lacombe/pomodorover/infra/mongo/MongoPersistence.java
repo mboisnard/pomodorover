@@ -2,8 +2,11 @@ package fr.lacombe.pomodorover.infra.mongo;
 
 import com.mongodb.MongoClient;
 import fr.lacombe.pomodorover.domain.CommandExecution;
+import fr.lacombe.pomodorover.domain.Position;
 import fr.lacombe.pomodorover.domain.RoverPersistence;
 import org.bson.Document;
+
+import java.util.Optional;
 
 public class MongoPersistence implements RoverPersistence {
 
@@ -26,6 +29,11 @@ public class MongoPersistence implements RoverPersistence {
         var positionsCollection = mongoDatabase.getCollection("positions");
 
         positionsCollection.insertOne(document);
+    }
+
+    @Override
+    public Optional<Position> findLastPosition() {
+        throw new UnsupportedOperationException();
     }
 
     Document mapDocument(CommandExecution commandExecution) {

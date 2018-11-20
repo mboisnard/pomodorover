@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Rover {
 
+    private static final Position DEFAULT_POSITION = Position.of(Orientation.NORTH, Coordinates.of(0, 0));
+
     private final RoverPersistence roverPersistence;
     private Position position;
 
@@ -13,7 +15,10 @@ public class Rover {
     }
 
     public static Rover withInitialPosition(RoverPersistence roverPersistence) {
-        return of(roverPersistence, Position.of(Orientation.NORTH, Coordinates.of(0, 0)));
+        Position position = roverPersistence.findLastPosition()
+                .orElse(DEFAULT_POSITION);
+
+        return of(roverPersistence, position);
     }
 
     static Rover of(RoverPersistence roverPersistence, Position position) {
@@ -27,12 +32,12 @@ public class Rover {
         return position;
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
     @Override
     public String toString() {
         return position.toString();
-    }
-
-    public Position getPosition() {
-        return position;
     }
 }

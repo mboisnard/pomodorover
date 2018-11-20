@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static fr.lacombe.pomodorover.domain.Command.*;
 import static fr.lacombe.pomodorover.domain.Orientation.*;
@@ -15,6 +16,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RoverTest {
@@ -60,5 +62,14 @@ class RoverTest {
                 asList(RIGHT, FORWARD),
                 Position.of(EAST, Coordinates.of(1, 0)))
         );
+    }
+
+    @Test
+    void should_initialize_rover_at_default_position_when_there_is_no_persisted_position() {
+        when(persistence.findLastPosition()).thenReturn(Optional.empty());
+
+        final Rover rover = Rover.withInitialPosition(persistence);
+
+        assertThat(rover.getPosition()).isEqualTo(Position.of(NORTH, Coordinates.of(0, 0)));
     }
 }
