@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static fr.lacombe.pomodorover.domain.Command.*;
 import static fr.lacombe.pomodorover.domain.Orientation.NORTH;
+import static fr.lacombe.pomodorover.infra.mongo.Adapter.toDocument;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -43,9 +44,7 @@ class MongoPersistenceTest {
 
     @Test
     void should_map_command_execution_as_bson_document() {
-        MongoPersistence mongoPersistence = new MongoPersistence(mongoClient);
-
-        Document document = mongoPersistence.mapDocument(commandExecution());
+        Document document = toDocument(commandExecution());
 
         assertThat(document).isEqualTo(document());
     }
